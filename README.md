@@ -32,4 +32,12 @@ Sign certificate
 
 `openssl x509 -req -in certificate_request.csr.pem -days 1825 -CA ca.crt.pem -CAkey ca.key.pem -set_serial 01 -out my_public_certificate.crt.pem`
 
+Self signed certificate
+
+`openssl req -x509 -newkey rsa:4096 -keyout ca.key.pem -out ca.crt.pem -days 1825 -subj "/CN=$COMMON_NAME" -passout pass:my_great_password`
+
+
+Update certificate
+
+`sudo dpkg-reconfigure ca-certificates` `sudo update-ca-certificates`
 
