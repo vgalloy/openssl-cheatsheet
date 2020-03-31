@@ -31,6 +31,7 @@ openssl req -x509 \
 Create a key : `openssl genrsa -out private.key.pem 4096`
 
 Create a `.csr` from key : `openssl req -new -key private.key.pem -out certificate_request.csr.pem`
+
 Create a `.csr` from key (non-interactive) :
 ```bash
 openssl req -new \
