@@ -8,7 +8,7 @@ OpenSSL 1.1.0g  2 Nov 2017
 ## Lexicon
 * `.pem` : Base 64 format
 * `.der` : Binary format
-* `.csr` : Certificate Signing Request.
+* `.csr` : Certificate Signing Request
 * `.crt` or `.cer` : Certificate
 * `.p12` : Binary format wrapping a key and a certificate in one file
 
@@ -51,20 +51,28 @@ openssl x509 -req \
     -out my_public_certificate.crt.pem
 ```
 
-### Other
 
-Convert key to pkc8 and remove password :
-```bash
-openssl pkcs8 -topk8 \
-    -inform PEM \
-    -outform PEM \
-    -in private.key.pem \
-    -out private.key.pkcs8.pem -nocrypt
-```
+### Convert PEM to DER :
 
-Convert PEM to DER :
+* Crt
 ```bash
 openssl x509 -outform der -in my_public_certificate.crt.pem -out my_public_certificate.crt.der
+```
+* Key
+```bash
+openssl rsa -outform der -in private.key.pem -out private.key.der
+```
+
+
+### Other
+
+Convert key to pkc8 without password :
+```bash
+openssl pkcs8 -topk8 \
+    -inform pem \
+    -outform pem \
+    -in private.key.pem \
+    -out private.key.pkcs8.pem -nocrypt
 ```
 
 Create `.p12` (interactive) :
@@ -73,7 +81,10 @@ openssl pkcs12 -export -out keyStore.p12 -inkey private.key.pem -in my_public_ce
 ```
 
 Update certificate :
-`sudo dpkg-reconfigure ca-certificates` `sudo update-ca-certificates`
+```bash
+sudo dpkg-reconfigure ca-certificates
+sudo update-ca-certificates
+```
 
 Create ks from crt :
 `keytool -import -alias ca -file ca.crt.pem -keystore ca.ks`
